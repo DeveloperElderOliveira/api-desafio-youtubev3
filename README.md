@@ -43,7 +43,12 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
 ```
+
+## OR Running the app Docker Compose
+
+docker-compose up -d
 
 ## Test
 
