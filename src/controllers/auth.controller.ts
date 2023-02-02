@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards,Req, Res, Param } from "@nestjs/common";
+import { Controller, Get, UseGuards,Req, Res, Param, Post } from "@nestjs/common";
 import { AuthService } from "src/services/auth.service";
 
 @Controller()
@@ -17,15 +17,9 @@ export class AuthController{
         let url = 'http://localhost:8080/signin/' + token.tokens.access_token;
         res.redirect(url);
     }
-
-    @Get('/allVideos/:token')
-    getAllVideos(@Param('token') token:string){
-        token = 'AIzaSyBrv2XwNbYVOddM_O3tYh5ZgkXyEUfENK0';
-        this.authService.getAllVideos(token);
-    }
-
-    @Get('/uploadVideo')
-    uploadVideo(){
-        this.authService.uploadVideo();
+    @Post('/uploadVideo/:token')
+    uploadVideo(@Res() res, @Req() req,@Param('token') token:string){
+        const file = req.files.file;
+        this.authService.uploadVideo(file,token);
     }
 }
